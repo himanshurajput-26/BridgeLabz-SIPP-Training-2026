@@ -1,0 +1,34 @@
+import java.io.*;
+
+public class Q13_ProductInventoryChecker {
+
+    public static void main(String[] args)
+            throws Exception {
+
+        BufferedReader br =
+                new BufferedReader(
+                        new FileReader("inventory.txt"));
+
+        String line;
+
+        while ((line = br.readLine()) != null) {
+
+            String[] data =
+                    line.split("-");
+
+            String product =
+                    data[0];
+
+            int qty =
+                    Integer.parseInt(data[1]);
+
+            if (qty == 0) {
+                System.out.println(
+                        product +
+                                " is out of stock");
+            }
+        }
+
+        br.close();
+    }
+}

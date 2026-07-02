@@ -1,0 +1,78 @@
+CREATE DATABASE covid_db;
+USE covid_db;
+
+-- 1. Create Tables
+
+CREATE TABLE covid_cases (
+    country VARCHAR(50),
+    report_date DATE,
+    confirmed_cases INT,
+    deaths INT,
+    recoveries INT,
+    population BIGINT
+);
+
+CREATE TABLE covid_deaths (
+    country VARCHAR(50),
+    report_date DATE,
+    total_deaths INT
+);
+
+CREATE TABLE covid_vaccines (
+    country VARCHAR(50),
+    report_date DATE,
+    vaccinated_people INT
+);
+
+-- 2. Insert Sample Data
+
+INSERT INTO covid_cases
+(country, report_date, confirmed_cases, deaths, recoveries, population)
+VALUES
+('India', '2024-01-01', 45000000, 530000, 44400000, 1400000000),
+('India', '2024-02-01', 45200000, 531000, 44600000, 1400000000),
+('USA', '2024-01-01', 103000000, 1120000, 100500000, 331000000),
+('USA', '2024-02-01', 103500000, 1125000, 101000000, 331000000),
+('UK', '2024-01-01', 24500000, 232000, 24200000, 67000000),
+('UK', '2024-02-01', 24650000, 233000, 24350000, 67000000);
+
+-- 3. Update Case Information
+
+UPDATE covid_cases
+SET confirmed_cases = 45300000
+WHERE country = 'India'
+AND report_date = '2024-02-01';
+
+-- 4. Delete Incorrect Record
+
+DELETE FROM covid_cases
+WHERE country = 'IN';
+
+-- Delete Duplicate Record Example
+DELETE FROM covid_cases
+WHERE country = 'India'
+AND report_date = '2024-01-01'
+LIMIT 1;
+
+-- 5. Alter Table to Add Vaccination Information
+
+ALTER TABLE covid_cases
+ADD vaccination_rate DECIMAL(5,2);
+
+-- Update Vaccination Rate
+
+UPDATE covid_cases
+SET vaccination_rate = 76.50
+WHERE country = 'India';
+
+UPDATE covid_cases
+SET vaccination_rate = 81.20
+WHERE country = 'USA';
+
+UPDATE covid_cases
+SET vaccination_rate = 78.40
+WHERE country = 'UK';
+
+-- Final Output
+
+SELECT * FROM covid_cases;
